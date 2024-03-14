@@ -3,9 +3,18 @@
   "version": "1.0.0",
   "description": "My version of the Unix command line tool wc",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "nodemon index.js"
   },
   "author": "Francis Maina",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "express": "^4.18.3",
+    "yargs": "^17.7.2"
+  }
 }
