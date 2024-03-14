@@ -42,3 +42,22 @@ const options = {
   words: argv.w,
   chars: argv.m,
 };
+
+// Handle standard input (if no filepath is provided)
+if (!argv._[0]) {
+  const data = process.stdin.readSync();
+  const content = data.toString();
+  const results = wctool(content, options);
+  console.log("results ", results.join(" "));
+} else{
+    const filePath = argv._[0];
+
+    // Read file content using fs
+    try{
+        const content = fs.readFileSync(filePath, 'utf8');
+        const results = wctool(content, options);
+        console.log(`${results.join(' ')} ${filePath}`);
+    } catch(error){
+        console.error(`Error reading file: ${error.message}`); 
+    }
+}
