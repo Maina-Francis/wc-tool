@@ -1,0 +1,11 @@
+{
+  "name": "wctool",
+  "version": "1.0.0",
+  "description": "My version of the Unix command line tool wc",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Francis Maina",
+  "license": "ISC"
+}
