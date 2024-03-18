@@ -2,8 +2,6 @@ import fs from "fs";
 import yargs from "yargs";
 import wctool from "./src/wctool.js";
 
-
-
 const argv = yargs
   .usage("Usage: index.js [options] [filepath]")
   .option("c", {
@@ -22,7 +20,6 @@ const argv = yargs
     alias: "chars",
     describe: "Count number of characters in the file",
   })
-  .demandOption(1, "Please provide a filepath or use standard input (pipe)")
   .help("h", "Show help")
   .alias("h", "help").argv;
 
@@ -35,10 +32,18 @@ const options = {
 
 // Handle standard input (if no filepath is provided)
 if (!argv._[0]) {
-  const data = process.stdin.readSync();
-  const content = data.toString();
-  const results = wctool(content, options);
-  console.log("results ", results.join(" "));
+  try {
+    const data = await process.stdin.read();
+    if (data) {
+      const content = data.toString();
+      const results = wctool(content, options);
+      console.log("results ", results.join(" "));
+    } else {
+      console.error("No data received from standard input");
+    }
+  } catch (error) {
+    console.error("Error reading from stdin:", error);
+  }
 } else {
   const filePath = argv._[0];
 
