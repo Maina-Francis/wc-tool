@@ -30,8 +30,20 @@ const options = {
   chars: argv.m,
 };
 
-// Handle standard input (if no filepath is provided)
-if (!argv._[0]) {
+// Handle standard input (if filePath is provided)
+let filePath = process.argv.length ===3 ? process.argv[2] : process.argv[3];
+console.log("Here is the file path: " + filePath);
+
+if (filePath) {
+  // Read file content using fs
+  try {
+    const content = fs.readFileSync(filePath, "utf8");
+    const results = wctool(content, options);
+    console.log(`${results.join(" ")} ${filePath}`);
+  } catch (error) {
+    console.error(`Error reading file: ${error.message}`);
+  }
+} else {
   try {
     const data = await process.stdin.read();
     if (data) {
@@ -43,16 +55,5 @@ if (!argv._[0]) {
     }
   } catch (error) {
     console.error("Error reading from stdin:", error);
-  }
-} else {
-  const filePath = argv._[0];
-
-  // Read file content using fs
-  try {
-    const content = fs.readFileSync(filePath, "utf8");
-    const results = wctool(content, options);
-    console.log(`${results.join(" ")} ${filePath}`);
-  } catch (error) {
-    console.error(`Error reading file: ${error.message}`);
   }
 }
