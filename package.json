@@ -4,9 +4,17 @@
   "description": "My version of the Unix command line tool wc",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "npm": "^10.2.4",
+    "node": "^21.5.0"
+  },
   "scripts": {
     "test": "test",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "ccwc": "node index.js"
+  },
+  "bin": {
+    "ccwc": "./index.js"
   },
   "author": "Francis Maina",
   "license": "ISC",
