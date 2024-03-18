@@ -1,8 +1,10 @@
+import fs from 'fs';
 const wctool = function (content, options = {}) {
   const results = [];
 
   if (options.bytes) {
-    results.push(content.length);
+    // results.push(content.length);
+    results.push(Buffer.byteLength(content));
   }
 
   if (options.lines) {
@@ -10,18 +12,19 @@ const wctool = function (content, options = {}) {
   }
 
   if (options.words) {
-    results.push(content.split(/\b\w+\b/u).length); //Use Unicode word boundary
+    results.push(content.trim().split(/\s+/).length); 
   }
 
   if (options.chars) {
-    results.push(content.replace(/\r?\n/g, "").length);
+    results.push(content.length);
   }
 
   // Default output (all counts) if no options are specified
   if (results.length === 0) {
-    results.push(content.length);
     results.push(content.split(/\r?\n/).length);
     results.push(content.split(/\s+/).length);
+    results.push(Buffer.byteLength(content));
+
   }
 
   return results;
