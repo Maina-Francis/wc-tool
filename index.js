@@ -1,21 +1,11 @@
-import express from "express";
 import fs from "fs";
 import yargs from "yargs";
-import * as wctool from "./src/wctool";
+import wctool from "./src/wctool.js";
 
-const app = express();
-const port = 3000;
 
-app.listen(port, (error) => {
-  if (!error) {
-    console.log(`Server running successfully and listening on port ${port}`);
-  } else {
-    console.log("An error occured, server can't start ", error);
-  }
-});
 
 const argv = yargs
-  .usage("Usage: ccwc [options] [filepath]")
+  .usage("Usage: index.js [options] [filepath]")
   .option("c", {
     alias: "bytes",
     describe: "Count number of bytes in the file",
@@ -49,15 +39,15 @@ if (!argv._[0]) {
   const content = data.toString();
   const results = wctool(content, options);
   console.log("results ", results.join(" "));
-} else{
-    const filePath = argv._[0];
+} else {
+  const filePath = argv._[0];
 
-    // Read file content using fs
-    try{
-        const content = fs.readFileSync(filePath, 'utf8');
-        const results = wctool(content, options);
-        console.log(`${results.join(' ')} ${filePath}`);
-    } catch(error){
-        console.error(`Error reading file: ${error.message}`); 
-    }
+  // Read file content using fs
+  try {
+    const content = fs.readFileSync(filePath, "utf8");
+    const results = wctool(content, options);
+    console.log(`${results.join(" ")} ${filePath}`);
+  } catch (error) {
+    console.error(`Error reading file: ${error.message}`);
+  }
 }

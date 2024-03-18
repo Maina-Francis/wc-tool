@@ -1,4 +1,4 @@
-module.exports = function (content, options = {}) {
+const wctool = function (content, options = {}) {
   const results = [];
 
   if (options.bytes) {
@@ -26,3 +26,5 @@ module.exports = function (content, options = {}) {
 
   return results;
 };
+
+export default wctool;
